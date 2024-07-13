@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Result for {{ result.quiz.title }}</h1>
+  <p>Score: {{ result.score }}</p>
+  <p>Date: {{ result.created_at }}</p>
+{% endblock %}

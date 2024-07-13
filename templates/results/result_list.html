@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Results</h1>
+  <ul>
+    {% for result in results %}
+      <li><a href="{% url 'result_detail' result.id %}">{{ result.quiz.title }} - {{ result.score }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}
