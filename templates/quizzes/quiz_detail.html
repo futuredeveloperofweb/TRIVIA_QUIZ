@@ -3,12 +3,16 @@
 {% block content %}
   <h1>{{ quiz.title }}</h1>
   <p>{{ quiz.description }}</p>
-  <a href="{% url 'quiz_edit' quiz.id %}">Edit quiz</a>
-  <h2>Questions</h2>
-  <ul>
-    {% for question in quiz.questions %}
-      <li>{{ question.text }} <a href="{% url 'add_option' question.id %}">Add options</a></li>
-    {% endfor %}
-  </ul>
-  <a href="{% url 'add_question' quiz.id %}">Add new question</a>
+  {% if user.is_superuser %}
+    <a href="{% url 'quiz:quiz_edit' quiz.quiz_id %}">Edit quiz</a>
+    <h2>Questions</h2>
+    <ul>
+      {% for question in quiz.questions.all %}
+        <li>{{ question.question_text }} <a href="{% url 'quiz:add_option' question.question_id %}">Add options</a></li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'quiz:add_question' quiz.quiz_id %}">Add new question</a>
+  {% else %}
+    <a href="{% url 'quiz:start_quiz' quiz.quiz_id %}" class="btn">Start Quiz</a>
+  {% endif %}
 {% endblock %}

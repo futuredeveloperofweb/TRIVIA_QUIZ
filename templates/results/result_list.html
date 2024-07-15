@@ -4,7 +4,7 @@
   <h1>Results</h1>
   <ul>
     {% for result in results %}
-      <li><a href="{% url 'result_detail' result.id %}">{{ result.quiz.title }} - {{ result.score }}</a></li>
+      <li><a href="{% url 'quiz:result_detail' result.result_id %}">{{ result.quiz_id.title }} - {{ result.score }}</a></li>
     {% endfor %}
   </ul>
 {% endblock %}

@@ -1,11 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Quizzes</h1>
+<div class="quizzes">
+  <div class="intro-text">
+    <h1 class="Title">Quizzes</h1>
+  </div>
+  <div class="create quiz">
   <a href="{% url 'quiz:quiz_create' %}">Create new quiz</a>
   <ul>
     {% for quiz in quizzes %}
-      <li><a href="{% url 'quiz_detail' quiz.id %}">{{ quiz.title }}</a></li>
+      {% if quiz.quiz_id %}
+        <li><a href="{% url 'quiz:quiz_detail' quiz.quiz_id %}">{{ quiz.title }}</a></li>
+      {% else %}
+        <li>{{ quiz.title }} (Invalid ID)</li>
+      {% endif %}
     {% endfor %}
   </ul>
+</div>
+</div>
 {% endblock %}
