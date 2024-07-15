@@ -1,57 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Trivia_Quiz</title>
-    <link rel="icon" type="image" href="html5.png">
-    <!--Main CSS file-->
-    {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}">
-    <!--Font Awesome-->
-    <link rel="stylesheet" href="css/all.css">
-    <!--Render All Elements Normally-->
-    <link rel="stylesheet" href="normalize.css">
-    <!--Google Font-->
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
-</head>
-<head>
-<!--Start Header -->
-<div class="header">
-    <div class="container">
-        <img src="{% static 'images/logo.png' %}" alt="Logo" class="nav-logo">
-      <div class="links">
-        <span class="icon">
-          <span></span>
-          <span></span>
-          <span></span>
-        </span>
-        <ul>
-          <li><a href="#services">Services</a></li>
-          <li><a href="#portfolio">Portfolio</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-<!--End Header-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
 <!--Start Landing Section-->
 <div class="landing">
   <div class="intro-text">
-    <h1>WELCOME TO TRIVIA_QUIZ</h1>
-    <p>Challenge your mind with the ultimate Trivia_Quiz!</p>
+      <h1>WELCOME TO TRIVIA_QUIZ</h1>
+      <p>Challenge your mind with the ultimate Trivia_Quiz!</p>
   </div>
-  <div>
-    <form action="/login" method="post" class="login-form">
-        <input type="email" name="email" placeholder="Email Address" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <button type="submit">Login</button>
-    </form>
-    <p class="signup-option">
-        Don't have an account? <a href="/signup">Sign up here</a>
-    </p>
-  </div>
+  {% if user.is_authenticated %}
+      <div>
+          <p>Welcome, {{ user.username }}!</p>
+          <a href="{% url 'quiz:quiz_list' %}" class="btn">Start a Quiz</a>
+          <a href="{% url 'quiz:result_list' %}" class="btn">View Results</a>
+      </div>
+  {% else %}
+      <div>
+          <p>Please log in or register to start taking quizzes.</p>
+          <form action="{% url 'authentication:login' %}" method="post" class="login-form">
+              {% csrf_token %}
+              {{ form.email }}
+              {{ form.password }}
+              <button type="submit">Login</button>
+          </form>
+          <p class="signup-option">
+              Don't have an account? <a href="{% url 'authentication:register' %}">Sign up here</a>
+          </p>
+      </div>
+  {% endif %}
 </div>
 <!--End Landing Section-->
 <!--Start Features-->
@@ -131,7 +108,6 @@
       </div>
       <div class="col">
         <div class="image image-column">
-          <img decoding="async" src="mount1.jpeg" alt="" />
         </div>
       </div>
     </div>
@@ -145,21 +121,18 @@
     <p>If you do it right, it will last forever.</p>
     <div class="portfolio-content">
       <div class="card">
-        <img src="portfolio-1.jpg" alt="">
         <div class="info">
           <h3>Project Here</h3>
           <p>My creative ability is very difficult to measure because it can manifest in so many surprising and.</p>
         </div>
       </div>
       <div class="card">
-        <img src="portfolio-2.jpg" alt="">
         <div class="info">
           <h3>Project Here</h3>
           <p>My creative ability is very difficult to measure because it can manifest in so many surprising and.</p>
         </div>
       </div>
       <div class="card">
-        <img src="portfolio-3.jpg" alt="">
         <div class="info">
           <h3>Project Here</h3>
           <p>My creative ability is very difficult to measure because it can manifest in so many surprising and.</p>
@@ -176,7 +149,6 @@
     <p>Less is more work</p>
     <div class="about-content">
       <div class="image">
-        <img decoding="async" src="about.jpg" alt="" />
       </div>
       <div class="text">
         <p>
@@ -204,18 +176,12 @@
        <a href="mailto:leonagency@mail.com" class="link">leonagency@mail.com</a>
        <div class="social">
         Find Us On Social Networks
-        <i class="fa-brands fa-youtube"></i>
-        <i class="fa-brands fa-facebook-f"></i>
-        <i class="fa-brands fa-twitter"></i>
+        <i class="fab fa-youtube"></i>
+        <i class="fab fa-facebook-f"></i>
+        <i class="fab fa-twitter"></i>
        </div>
      </div>
    </div>
 </div>
 <!--End Contact-->
-<!---Start Footer-->
-<div class="foot">
-  <p>&copy 2023 <span>Leon</span> All Right Reserved</p>
-</div>
-<!---End Footer-->
-</head>
-</html>
+{% endblock content %}

@@ -480,4 +480,133 @@
     color: var(--main-color);
   }
   /*End Footer*/
+
+  /* Base styles for the entire app */
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Work Sans', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.header {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 0;
+}
+
+.nav-logo {
+  height: 50px;
+  float: left;
+}
+
+.navbar {
+  float: right;
+}
+
+.nav-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.nav-links li {
+  margin-left: 20px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px 15px;
+  border-radius: 4px;
+}
+
+.nav-links a:hover {
+  background-color: #555;
+}
+
+.main-content {
+  padding: 50px 20px;
+}
+
+.landing {
+  text-align: center;
+  background: url('images/landing-bg.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 100px 0;
+  color: #fff;
+}
+
+.landing .btn {
+  background-color: #007BFF;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.landing .btn:hover {
+  background-color: #0056b3;
+}
+
+.features, .services, .portfolio, .about, .contact {
+  padding: 50px 0;
+}
+
+.special-heading {
+  font-size: 2.5em;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.features .feat, .services .srv, .portfolio .card, .about .about-content, .contact .info {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.features .feat i, .services .srv i {
+  color: #007BFF;
+}
+
+.features .feat h3, .services .srv h3 {
+  font-size: 1.5em;
+  margin: 10px 0;
+}
+
+.features .feat p, .services .srv p {
+  color: #666;
+}
+
+.portfolio .card img, .about .image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.footer {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.footer .social-links a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer .social-links a:hover {
+  color: #007BFF;
+}
+
   

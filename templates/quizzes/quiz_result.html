@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Quiz Result{% endblock %}
+
+{% block content %}
+<h1>Quiz Result: {{ result.quiz.title }}</h1>
+<p>Your Score: {{ result.score }}/{{ result.quiz.questions.count }}</p>
+<ul>
+    {% for question in result.quiz.questions.all %}
+        <li>
+            <strong>{{ question.question_text }}</strong><br>
+            Correct Answer: {{ question.options.get(is_correct=True).text }}<br>
+            {% if question.options.get(is_correct=True).text == result.quiz.options.get(is_correct=True).text %}
+                <span style="color: green;">Your Answer: {{ question.options.get(is_correct=True).text }} - Correct</span>
+            {% else %}
+                <span style="color: red;">Your Answer: {{ question.options.get(is_correct=True).text }} - Incorrect</span>
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'quiz:quiz_list' %}" class="btn">Back to Quizzes</a>
+{% endblock %}
