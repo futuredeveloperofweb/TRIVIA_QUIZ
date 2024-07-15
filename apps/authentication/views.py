@@ -4,6 +4,7 @@ from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from django.conf import settings
+from django.db import IntegrityError
 import logging
 
 # Initialize logger
@@ -20,8 +21,15 @@ def register_view(request):
                 login(request, user)
                 logger.info(f"User registered and logged in: {user.username}")
                 return redirect("home")
+            except IntegrityError as e:
+                if 'UNIQUE constraint' in str(e):
+                    logger.warning(f"Registration failed: {e}")
+                    form.add_error('username', 'This username is already taken.')
+                else:
+                    logger.error(f"Integrity error during registration: {e}")
+                    form.add_error(None, "An unexpected error occurred. Please try again.")
             except Exception as e:
-                logger.error(f"Error during user registration: {e}")
+                logger.error(f"Unexpected error during registration: {e}")
                 form.add_error(None, "An unexpected error occurred. Please try again.")
         else:
             for field, errors in form.errors.items():
