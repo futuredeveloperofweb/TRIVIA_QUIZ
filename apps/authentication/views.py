@@ -15,10 +15,18 @@ def register_view(request):
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            logger.info(f"User registered and logged in: {user.username}")
-            return redirect("home")
+            try:
+                user = form.save()
+                login(request, user)
+                logger.info(f"User registered and logged in: {user.username}")
+                return redirect("home")
+            except Exception as e:
+                logger.error(f"Error during user registration: {e}")
+                form.add_error(None, "An unexpected error occurred. Please try again.")
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    logger.warning(f"Error in {field}: {error}")
     else:
         form = CustomUserCreationForm()
     return render(request, "registration/register.html", {"form": form})
