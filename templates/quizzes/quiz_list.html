@@ -5,8 +5,10 @@
   <div class="intro-text">
     <h1 class="Title">Quizzes</h1>
   </div>
+  {% if user.is_superuser %}
   <div class="create quiz">
   <a href="{% url 'quiz:quiz_create' %}">Create new quiz</a>
+  {% endif %}
   <ul>
     {% for quiz in quizzes %}
       {% if quiz.quiz_id %}
