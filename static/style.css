@@ -174,9 +174,10 @@
     color: var(--main-color);
     font-size: 50px;
   }
-  .landing .intro-text p{
+  .landing .intro-text h2{
     font-size: 19px;
     line-height: 1.8;
+    color: var(--main-color);
   }
 /*-----for the form-------*/
   .login-form {

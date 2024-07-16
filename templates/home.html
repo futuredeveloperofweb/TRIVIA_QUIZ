@@ -7,7 +7,8 @@
 <div class="landing">
   <div class="intro-text">
       <h1>WELCOME TO TRIVIA_QUIZ</h1>
-      <p>Challenge your mind with the ultimate Trivia_Quiz!</p>
+      <h2>Challenge your mind with the ultimate Trivia_Quiz!</h2>
+      <!-- <p>Challenge your mind with the ultimate Trivia_Quiz!</p> -->
   </div>
   {% if user.is_authenticated %}
       <div>
@@ -22,10 +23,10 @@
               {% csrf_token %}
               {{ form.email }}
               {{ form.password }}
-              <button type="submit">Login</button>
+              <!-- <button type="submit">Login</button> -->
           </form>
           <p class="signup-option">
-              Don't have an account? <a href="{% url 'authentication:register' %}">Sign up here</a>
+            <!-- <a href="{% url 'authentication:register' %}">You don't have an account? Sign up here</a> -->
           </p>
       </div>
   {% endif %}
