@@ -1,18 +1,19 @@
 from django.urls import path
+
 from .views import (
-    QuizListView,
-    QuizDetailView,
     QuizCreateView,
-    QuizUpdateView,
+    QuizDetailView,
+    QuizListView,
     QuizResultView,
-    add_question,
-    add_option,
-    start_quiz,
-    ResultListView,
+    QuizUpdateView,
     ResultDetailView,
+    ResultListView,
+    add_option,
+    add_question,
+    start_quiz,
 )
 
-app_name = 'quiz'
+app_name = "quiz"
 
 
 urlpatterns = [

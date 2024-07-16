@@ -1,6 +1,7 @@
-from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
-from apps.quiz.models import Quiz, Question, Option
+from django.core.management.base import BaseCommand
+
+from apps.quiz.models import Option, Question, Quiz
 
 User = get_user_model()
 
