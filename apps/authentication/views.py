@@ -1,18 +1,31 @@
-from django.shortcuts import render, redirect
+import logging
+
+from django.conf import settings
 from django.contrib.auth import login, logout
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.tokens import default_token_generator
-from .forms import CustomUserCreationForm, CustomAuthenticationForm
-from django.conf import settings
 from django.db import IntegrityError
-import logging
+from django.shortcuts import redirect, render
+
+from .forms import CustomAuthenticationForm, CustomUserCreationForm
 
 # Initialize logger
 logger = logging.getLogger(__name__)
 
 
 def register_view(request):
-    """Handle user registration."""
+    """Handle user registration.
+
+    This view handles the registration of a new user. It processes the registration
+    form, saves the user to the database, and logs the user in if successful. It also
+    handles errors and logs them accordingly.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered registration page.
+    """
     if request.method == "POST":
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -22,12 +35,14 @@ def register_view(request):
                 logger.info(f"User registered and logged in: {user.username}")
                 return redirect("home")
             except IntegrityError as e:
-                if 'UNIQUE constraint' in str(e):
+                if "UNIQUE constraint" in str(e):
                     logger.warning(f"Registration failed: {e}")
-                    form.add_error('username', 'This username is already taken.')
+                    form.add_error("username", "This username is already taken.")
                 else:
                     logger.error(f"Integrity error during registration: {e}")
-                    form.add_error(None, "An unexpected error occurred. Please try again.")
+                    form.add_error(
+                        None, "An unexpected error occurred. Please try again."
+                    )
             except Exception as e:
                 logger.error(f"Unexpected error during registration: {e}")
                 form.add_error(None, "An unexpected error occurred. Please try again.")
@@ -41,7 +56,16 @@ def register_view(request):
 
 
 def login_view(request):
-    """Handle user login."""
+    """Handle user login.
+
+    This view processes the login form and logs the user in if the credentials are valid.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered login page.
+    """
     if request.method == "POST":
         form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -55,14 +79,32 @@ def login_view(request):
 
 
 def logout_view(request):
-    """Handle user logout."""
+    """Handle user logout.
+
+    This view logs the user out and redirects them to the home page.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: A redirect to the home page.
+    """
     logout(request)
     logger.info("User logged out")
     return redirect("home")
 
 
 def password_reset_view(request):
-    """Handle password reset."""
+    """Handle password reset.
+
+    This view processes the password reset form and sends a password reset email if the form is valid.
+
+    Args:
+        request: The HTTP request object.
+
+    Returns:
+        HttpResponse: The rendered password reset form page.
+    """
     if request.method == "POST":
         form = PasswordResetForm(request.POST)
         if form.is_valid():
